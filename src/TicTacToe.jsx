@@ -86,7 +86,7 @@ function Board({xIsNext, squares, onPlay}) {
 
 
     return(
-        <>
+        <div className='gameboard-wrapper'>
         <h1>{Status}</h1>
         <div className='gameboard'>
             
@@ -97,7 +97,7 @@ function Board({xIsNext, squares, onPlay}) {
             )}
 
         </div>
-        </>
+        </div>
     )
 }
 
@@ -147,10 +147,10 @@ export default function Game() {
     )
 
     return(
-        <div>
+        <div className='main-div'>
             <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
 
-                <ol>
+                <ol className='steps-list'>
                     {moves}
                 </ol>
         </div>

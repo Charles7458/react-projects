@@ -1,3 +1,15 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.main-div {
+    display: flex;
+}
+
 .square {
     height: 50px;
     width: 50px;
@@ -6,6 +18,10 @@
     background-color: azure;
     border: 1px solid black;
     cursor:pointer;
+}
+
+.gameboard-wrapper {
+    display: inline;
 }
 
 .gameboard {
@@ -17,4 +33,9 @@
 
 .steps {
     margin: 10px;
+}
+
+.steps-list {
+    display: inline-block;
+    margin: 0px 0px 0px 30px;
 }
