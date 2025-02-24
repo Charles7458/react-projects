@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main-wrapper {
+    height: fit-content;
+    width: fit-content;
+    margin: 100px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0px 5px 10px 0px gray;
+    padding: 20px 30px;
+}
+
+p {
+    font-size: 30px;
+}
+.profile, .info, .follow {
+    display: inline-block;
+    vertical-align: middle;
+}
+.profile {
+    width: 110px;
+    padding: 30px 20px ;
+}
+.profile-pic {
+    height: 90px;
+    width: 90px;
+    border-radius: 100px;
+}
+
+.info {
+    width: 300px;
+    padding-left: 20px;
+}
+
+.name {
+    font-weight: 500;
+}
+
+.desc, .status {
+    color: rgb(171, 169, 169);
+}
+
+.btn {
+    background-color: rgb(88, 180, 255);
+    color: white;
+    font-weight: 500;
+    font-family: Roboto, Arial;
+    font-size: 20px;
+    padding: 20px 30px;
+    border: none;
+    border-radius: 10px;
+}

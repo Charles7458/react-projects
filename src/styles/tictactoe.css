@@ -1,0 +1,20 @@
+.square {
+    height: 50px;
+    width: 50px;
+    font-weight: 700;
+    font-size: 18px;
+    background-color: azure;
+    border: 1px solid black;
+    cursor:pointer;
+}
+
+.gameboard {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width: 150px;
+    border-collapse: collapse;
+}
+
+.steps {
+    margin: 10px;
+}

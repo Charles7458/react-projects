@@ -1,0 +1,28 @@
+body{
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.wrapper{
+    background-color: rgb(223, 223, 223);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.wrapper label{
+    display: block;
+    margin: 10px 0px;
+}
+
+.tables {
+    margin: 10px 0px;
+}
+
+.tables table td, .tables table th{
+    padding: 10px 50px;
+    text-align: center;
+}
