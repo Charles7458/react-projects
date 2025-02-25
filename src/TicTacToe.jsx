@@ -23,6 +23,7 @@ function Board({xIsNext, squares, onPlay}) {
         let i = `${a}`;
         let j = `${b}`;
         let k = `${c}`;
+        
         let box1 = document.getElementById(i);
         let box2 = document.getElementById(j);
         let box3 = document.getElementById(k);
@@ -36,7 +37,7 @@ function Board({xIsNext, squares, onPlay}) {
         box3.style.backgroundColor = "green";
         box3.style.color = "white";
         }
-        
+        // let var const
     
     function handleClick(index) {
 
