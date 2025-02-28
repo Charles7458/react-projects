@@ -107,7 +107,7 @@ export default function Bank(){
         }
 
         setName(Name.value);
-        setBalance(Deposit.value);
+        setBalance(parseInt(Deposit.value));
         setPin(Pin.value);
         setLogin(true);
         showModal("Account created Succesfully!", "");
@@ -169,7 +169,7 @@ export default function Bank(){
         }
         >
             <FloatingInput type="text" place_holder="Name" Label="Name" max_length={max_length} id="Name" />
-            <FloatingInput type="number" place_holder="Deposit Amount" Label="Deposit Amount" max_length={max_length} id="Deposit" />
+            <FloatingInput type="number" place_holder="Deposit Amount" Label="Deposit Amount (> 100)" max_length={max_length} id="Deposit" />
             <FloatingInput type="password" place_holder="Pin" Label="Pin" max_length={4} id="Pin" />
             <button type="submit" className='btn' onClick={updatedata}>Create Account</button>
         </form>
