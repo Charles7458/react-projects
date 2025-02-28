@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import './styles/bank.css'
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
 
 
 
@@ -10,6 +13,35 @@ export default function Bank(){
     let [login, setLogin] = useState(false);
     let [balance, setBalance] = useState(0);
     let [name, setName] = useState("");
+    let [modalText, setModalText] = useState("");
+    const [show, setShow] = useState(false);
+
+    function showModal(text) {
+        setModalText(text);
+        setShow(true);
+    }
+
+    function CreationModal({text}) {
+  
+
+        const handleClose = () => setShow(false);
+      
+      
+        return (
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title style={{color:"black"}}>Status</Modal.Title>
+              </Modal.Header>
+              <Modal.Body style={{color:"black"}}>{text}</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+        );
+      }
+
 
     let updatedata =() =>
     {
@@ -19,6 +51,7 @@ export default function Bank(){
         setName(Name.value);
         setBalance(parseInt(Deposit.value));
         setLogin(true);
+        showModal("Account created Succesfully!");
     }
 
     function deposit() {
@@ -28,6 +61,7 @@ export default function Bank(){
         }
         let newBalance = balance+amount;
         setBalance(newBalance);
+        showModal(`Deposit successful!\n Current Balance: ${newBalance}`);
     }
 
     function withdraw() {
@@ -37,13 +71,13 @@ export default function Bank(){
         }
         let newBalance = balance - amount;
         setBalance(newBalance);
+        showModal(`Withdraw successful!\n Current Balance: ${newBalance}`);
     }
 
     function BankAccount() {
-        // let [Amount, setAmount] = useState(0);
         
         function displayDetails() {
-            alert(`Account Holder: ${name}\nBalance: ${balance}`)
+            showModal(`Account Holder: ${name}\n Balance: ${balance}`);
         }
         return(
         <>
@@ -59,9 +93,10 @@ export default function Bank(){
     function CreateAccount(){
         const max_length = 25;
         return(
-        <form onSubmit={ (e) =>
+        <form onSubmit={ (e) => 
             e.preventDefault()
-            }>
+        }
+        >
 
             <input type="text" placeholder="Name" maxLength={max_length} id='Name' autoComplete="off" />
             <input type="number" placeholder="Deposit Amount" maxLength={max_length} id='Deposit' autoComplete='off'/>
@@ -74,9 +109,11 @@ export default function Bank(){
 
     return(
         <div className="wrapper">
+            <CreationModal text={modalText}/>
             <h1> 🏦<br/>Bank of <br/><span>Will O' Wisp</span></h1>
 
             {login ?  <BankAccount /> : <CreateAccount />}
+            
         </div>
     )
 }
