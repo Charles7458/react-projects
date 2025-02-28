@@ -13,11 +13,15 @@ export default function Bank(){
     let [login, setLogin] = useState(false);
     let [balance, setBalance] = useState(0);
     let [name, setName] = useState("");
-    let [modalText, setModalText] = useState("");
+    let [modalText, setModalText] = useState({
+        firstLine: "",
+        secondLine: ""
+    });
     const [show, setShow] = useState(false);
 
-    function showModal(text) {
-        setModalText(text);
+
+    function showModal(first, second) {
+        setModalText({firstLine: first, secondLine: second });
         setShow(true);
     }
 
@@ -32,7 +36,10 @@ export default function Bank(){
               <Modal.Header closeButton>
                 <Modal.Title style={{color:"black"}}>Status</Modal.Title>
               </Modal.Header>
-              <Modal.Body style={{color:"black"}}>{text}</Modal.Body>
+              <Modal.Body style={{color:"black"}}>
+                <p>{text.firstLine}</p>
+                <p>{text.secondLine}</p>
+              </Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                   Close
@@ -51,7 +58,7 @@ export default function Bank(){
         setName(Name.value);
         setBalance(parseInt(Deposit.value));
         setLogin(true);
-        showModal("Account created Succesfully!");
+        showModal("Account created Succesfully!", "");
     }
 
     function deposit() {
@@ -61,7 +68,7 @@ export default function Bank(){
         }
         let newBalance = balance+amount;
         setBalance(newBalance);
-        showModal(`Deposit successful!\n Current Balance: ${newBalance}`);
+        showModal("Deposit Successful!", `Current Balance: ${newBalance}`);
     }
 
     function withdraw() {
@@ -71,13 +78,13 @@ export default function Bank(){
         }
         let newBalance = balance - amount;
         setBalance(newBalance);
-        showModal(`Withdraw successful!\n Current Balance: ${newBalance}`);
+        showModal("Withdraw Successful!", `Current Balance: ${newBalance}`);
     }
 
     function BankAccount() {
         
         function displayDetails() {
-            showModal(`Account Holder: ${name}\n Balance: ${balance}`);
+            showModal(`Account Holder: ${name}`,`Balance: ${balance}`);
         }
         return(
         <>
