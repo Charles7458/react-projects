@@ -2,6 +2,8 @@ import { useState } from 'react';
 import './styles/bank.css'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
 
 
 
@@ -20,14 +22,14 @@ export default function Bank(){
     });
     const [show, setShow] = useState(false);
 
-
+    //function to show Modal
     function showModal(first, second) {
         setModalText({firstLine: first, secondLine: second });
         setShow(true);
     }
 
+    //component for Modal
     function CreationModal({text}) {
-  
 
         const handleClose = () => setShow(false);
       
@@ -47,6 +49,20 @@ export default function Bank(){
                 </Button>
               </Modal.Footer>
             </Modal>
+        );
+      }
+
+    //component for floating label input
+
+    function FloatingInput({type, Label, id, place_holder, max_length}) {
+        return (
+            <FloatingLabel
+              controlId="floatingInput"
+              label={Label}
+              className="mb-3 text-dark"
+            >
+              <Form.Control type={type} placeholder={place_holder} id={id} maxLength={max_length} autoComplete='off'/>
+            </FloatingLabel>
         );
       }
 
@@ -123,10 +139,9 @@ export default function Bank(){
             e.preventDefault()
         }
         >
-
-            <input type="text" placeholder="Name" maxLength={max_length} id='Name' autoComplete="off" />
-            <input type="number" placeholder="Deposit Amount" maxLength={max_length} id='Deposit' autoComplete='off'/>
-            <input type='password' maxLength={4} id='Pin' autoComplete='off' placeholder='Pin'/>
+            <FloatingInput type="text" place_holder="Name" Label="Name" max_length={max_length} id="Name" />
+            <FloatingInput type="number" place_holder="Deposit Amount" Label="Deposit Amount" max_length={max_length} id="Deposit" />
+            <FloatingInput type="password" place_holder="Pin" Label="Pin" max_length={4} id="Pin" />
             <button type="submit" className='btn' onClick={updatedata}>Create Account</button>
         </form>
         )
