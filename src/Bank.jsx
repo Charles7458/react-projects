@@ -10,10 +10,11 @@ import Modal from 'react-bootstrap/Modal';
 
 export default function Bank(){
 
-    let [login, setLogin] = useState(false);
-    let [balance, setBalance] = useState(0);
-    let [name, setName] = useState("");
-    let [modalText, setModalText] = useState({
+    const [login, setLogin] = useState(false);
+    const [balance, setBalance] = useState(0);
+    const [name, setName] = useState("");
+    const [Pin, setPin] = useState(NaN);
+    const [modalText, setModalText] = useState({
         firstLine: "",
         secondLine: ""
     });
@@ -54,9 +55,27 @@ export default function Bank(){
     {
         let Name = document.querySelector("#Name")
         let Deposit = document.querySelector("#Deposit")
+        let Pin = document.querySelector("#Pin")
+        const Pinregex = new RegExp("^\[0-9]{4}$");
+
+        if (Name.value === "") {
+            showModal("Name should not be blank!", "");
+            return
+        }
+
+        if (Deposit.value < 100) {
+            showModal("Deposit should not be less than 100 !", "");
+            return
+        }
+
+        if(!(Pinregex.test(Pin.value))) {
+            showModal("Pin should be a four digit number!", "");
+            return
+        }
 
         setName(Name.value);
-        setBalance(parseInt(Deposit.value));
+        setBalance(Deposit.value);
+        setPin(Pin.value);
         setLogin(true);
         showModal("Account created Succesfully!", "");
     }
@@ -107,6 +126,7 @@ export default function Bank(){
 
             <input type="text" placeholder="Name" maxLength={max_length} id='Name' autoComplete="off" />
             <input type="number" placeholder="Deposit Amount" maxLength={max_length} id='Deposit' autoComplete='off'/>
+            <input type='password' maxLength={4} id='Pin' autoComplete='off' placeholder='Pin'/>
             <button type="submit" className='btn' onClick={updatedata}>Create Account</button>
         </form>
         )
@@ -117,8 +137,7 @@ export default function Bank(){
     return(
         <div className="wrapper">
             <CreationModal text={modalText}/>
-            <h1> 🏦<br/>Bank of <br/><span>Will O' Wisp</span></h1>
-
+            <h1> 🏦<br/>Bank</h1>
             {login ?  <BankAccount /> : <CreateAccount />}
             
         </div>
