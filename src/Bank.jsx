@@ -22,6 +22,23 @@ export default function Bank(){
     });
     const [show, setShow] = useState(false);
 
+    //function to check pin
+    function pinCheck() {
+        let newPin = prompt("Enter your pin:");
+        while (isNaN(newPin)){
+            alert("Enter valid pin!")
+            newPin = prompt("Enter your pin:")
+        }
+        
+        if(newPin === Pin) {
+            return true;
+        }
+        else{
+            alert("Wrong pin. Try again.")
+            return false;
+        }
+    }
+
     //function to show Modal
     function showModal(first, second) {
         setModalText({firstLine: first, secondLine: second });
@@ -99,21 +116,33 @@ export default function Bank(){
     function deposit() {
         let amount = parseFloat(prompt("Enter the amount:"));
         if(isNaN(amount)){
+            showModal("Deposit unsuccessful! Not a valid amount");
             return;
         }
-        let newBalance = balance+amount;
-        setBalance(newBalance);
-        showModal("Deposit Successful!", `Current Balance: ${newBalance}`);
+        if(pinCheck()) {
+            let newBalance = balance+amount;
+            setBalance(newBalance);
+            showModal("Deposit Successful!", `Current Balance: ${newBalance}`);
+        }
     }
 
     function withdraw() {
+
         let amount = parseFloat(prompt("Enter the amount:"));
-        if(isNaN(amount)){
-            return;
+            if(isNaN(amount)){
+                showModal("Withdraw unsuccessful! Not a valid amount");
+                return;
+            }
+            if(amount> balance){
+                showModal("Withdraw amount is greater than the balance!", "");
+                return;
+            }
+        if(pinCheck()){
+            
+            let newBalance = balance - amount;
+            setBalance(newBalance);
+            showModal("Withdraw Successful!", `Current Balance: ${newBalance}`);
         }
-        let newBalance = balance - amount;
-        setBalance(newBalance);
-        showModal("Withdraw Successful!", `Current Balance: ${newBalance}`);
     }
 
     function BankAccount() {
