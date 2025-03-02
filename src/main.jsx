@@ -6,9 +6,10 @@ import Bank from './Bank'
 // import Game from './TicTacToe'
 // import TicTacToe from './GPT/TicTacToe'
 // import Products from './Products'
+import MovingBall from './Ball'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Bank />
+    <MovingBall />
   </StrictMode>
 )
