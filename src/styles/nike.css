@@ -1,9 +1,15 @@
 
-.card {
+
+.products {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 30px;
+    row-gap: 30px;
+    justify-self: center;
+    margin-top: 100px;
+    height: fit-content;
     width: fit-content;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px 0px gray;
+    padding: 30px;
 }
 
 a {
@@ -15,9 +21,25 @@ a:hover {
     color: orange;
  }
 
+
+.card {
+    height: 430px;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px gray;
+}
+
 .pic {
+    height: 100%;
+    width: 100%;
+    
+}
+
+.pic-wrapper {
     margin: 10px 0px;
-    height: 100px;
+    height: 150px;
+    width: 90%;
     border-radius: 5px;
     box-shadow: 0px 0px 5px 0px gray;
     padding: 10px;
@@ -28,15 +50,17 @@ a:hover {
     font-size: 18px;
  }
 
-.shoes {
-    
+.name {
     font-size: 20px;
     font-weight: bold;
+    height: 30px;
+    margin-bottom: 20px;
  }
 
-.price {
-    color: rgb(30, 213, 30);
- }
+.qty {
+    width: 50px;
+    cursor: pointer;
+}
 
 .cart {
     padding: 10px 20px;
@@ -49,10 +73,9 @@ a:hover {
 }
 
 .buy {
-    height: 36px;
-    width: 100px;
+    padding: 10px 20px;
     border:none;
-    border-radius: 18px;
+    border-radius: 30px;
     font-weight: bold;
     background-color: rgb(255, 136, 0);
     color: black;
@@ -62,7 +85,7 @@ a:hover {
 .buttons {
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
+    margin-top: 20px;
     padding-right: 10px;
 }
 
@@ -70,10 +93,52 @@ a:hover {
     padding: 20px;
     height: 350px;
     width: 300px;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     box-shadow: 0px 0px 10px 0px gray;
+    background-color: white;
     margin: 20px;
     border-radius: 15px;
+    z-index: 2;
+}
+
+.order-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.min-orders {
+    /* display: flex; */
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    z-index: 3;
+    background-color: white;
+    box-shadow: 0px 0px 10px 0px gray;
+    margin: 20px;
+    display: none;
+}
+
+.m-btn {
+    border: none;
+    height: fit-content;
+    width: fit-content;
+    margin-right: 20px;
+    border-radius: 2px;
+    background-color: white;
+    box-shadow: 0px 0px 5px 0px gray;
+}
+
+.order-table td{
+    padding: 5px;
+    font-size: 15px;
+    width: 30px;
+    overflow-x: scroll;
 }
