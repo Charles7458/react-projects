@@ -1,4 +1,4 @@
-import {HashRouter, Route, Routes} from 'react-router-dom';
+import {HashRouter as BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import Bank from './Bank';
 import Game from './TicTacToe';
@@ -8,7 +8,7 @@ import Menu from './Menu';
 
 export default function () {
     return ( 
-        <HashRouter>
+        <BrowserRouter basename='/react-projects'>
             <Routes>
                 <Route path="/" element={<Menu />}>
                     <Route path="/" element={<Home />} />
@@ -18,7 +18,7 @@ export default function () {
                 </Route>
             </Routes>
 
-        </HashRouter>
+        </BrowserRouter>
      );
 }
 
