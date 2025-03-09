@@ -303,7 +303,7 @@ export default function Page() {
 
             <p>Total: ₹{total} ({totalItems} items)</p>
             <button className="cart" onClick={() => {setLoad("Loading..."); placeCartOrder()}}>{load}</button>
-            <button className="cart" style={{backgroundColor:"red", display:"block", margin:"10px 0px"}} onClick={reset}>Reset</button>
+            <button className="reset" onClick={reset}>Reset</button>
 
         </div>
 

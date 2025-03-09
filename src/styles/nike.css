@@ -71,7 +71,7 @@
     background-color: rgb(250, 202, 44);
     color: black;
     cursor: pointer;
-    font-size: clamp(10px, 1vw, 20px);
+    font-size: clamp(10px, 1.4vw, 15px);
 }
 
 .buy {
@@ -82,7 +82,7 @@
     background-color: rgb(255, 136, 0);
     color: black;
     cursor: pointer;
-    font-size: clamp(10px, 1vw, 20px);
+    font-size: clamp(10px, 1.4vw, 15px);
 }
 
 .buttons {
@@ -179,6 +179,18 @@
     white-space: nowrap;
 }
 
+.reset {
+    display: block;
+    border: none;
+    border-radius: 30px;
+    background-color: red;
+    font-weight: bold;
+    font-size: clamp(10px, 1.4vw, 15px);
+    margin: 10px 0px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
 @media (max-width:800px){
     .products{
         grid-template-columns: 1fr 1fr;
@@ -187,13 +199,15 @@
 
 
 @media (max-width: 600px){
-    
+    *{
+        margin: 0;
+    }
     .card{
         height: fit-content;
-        width: 35vw;
+        width: fit-content;
     }
     .orders {
-        width: 40vw;
+        width: fit-content;
         max-height: 300px;
     }
     .order-div{
@@ -205,10 +219,39 @@
     .order-label{
         margin-right: 20px;
     }
-    .cart, .buy {
+    .cart, .buy, .reset {
         border-radius: 20px;
         padding: 10px 8px;
         margin: initial 20px;
         white-space: nowrap;
+    }
+}
+
+@media(max-width:380px) {
+    .products{
+        grid-template-columns: 1fr;
+    }
+    .buttons{
+        display: inline;
+    }
+    .buy {
+        margin-left: 20px;
+    }
+
+    .min-orders{
+        width: fit-content;
+        padding: 5px;
+    }
+
+    
+    .m-btn{
+        margin-left: 5px;
+    }
+    .cart{
+        border-radius: 18px;
+    }
+    .reset{
+        padding: 5px 10px;
+        border-radius: 18px;
     }
 }
