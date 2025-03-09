@@ -10,11 +10,11 @@ export default function () {
     return ( 
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Menu />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/amazony" element={<Page />} />
-                    <Route path="/banky" element={<Bank />} />
-                    <Route path="/tictactoe" element={<Game />} />
+                <Route path="/react-projects/" element={<Menu />}>
+                    <Route path="/react-projects/" element={<Home />} />
+                    <Route path="/react-projects/amazony" element={<Page />} />
+                    <Route path="/react-projects/banky" element={<Bank />} />
+                    <Route path="/react-projects/tictactoe" element={<Game />} />
                 </Route>
             </Routes>
 

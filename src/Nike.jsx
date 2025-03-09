@@ -1,5 +1,10 @@
 import { useState } from "react";
 import './styles/nike.css';
+import nike_shoes from './assets/Nike/nike_shoes.jpeg';
+import jbl_speaker from './assets/Nike/jbl_speaker.jpg';
+import ROG_laptop from './assets/Nike/ASUS_ROG.jpg';
+import ps5 from './assets/Nike/PS5.jpeg';
+import adidas_shoes from './assets/Nike/adidas_shoes.jpeg';
 
 
 export default function Page() {
@@ -15,7 +20,7 @@ export default function Page() {
             id: 0,
             name: "Nike Black Running Shoes",
             price: 7000,
-            imgUrl: "/src/assets/Nike/nike_shoes.jpeg",
+            imgUrl: nike_shoes,
             stock: true
         },
 
@@ -23,7 +28,7 @@ export default function Page() {
             id: 1,
             name: "JBL Speaker",
             price: 3000,
-            imgUrl: "/src/assets/Nike/jbl_speaker.jpg",
+            imgUrl: jbl_speaker,
             stock: true
         },
 
@@ -31,7 +36,7 @@ export default function Page() {
             id: 2,
             name: "ASUS ROG laptop intel i9, 16GB RAM",
             price: 90000,
-            imgUrl: "/src/assets/Nike/ASUS_ROG.jpg",
+            imgUrl: ROG_laptop,
             stock: true
         },
 
@@ -39,7 +44,7 @@ export default function Page() {
             id: 3,
             name: "Sony PlayStation 5",
             price: 50000,
-            imgUrl: "/src/assets/Nike/PS5.jpeg",
+            imgUrl: ps5,
             stock: false
         },
 
@@ -47,7 +52,7 @@ export default function Page() {
             id: 4,
             name: "Adidas Black Running Shoes",
             price: 5000,
-            imgUrl: "/src/assets/Nike/adidas_shoes.jpeg",
+            imgUrl: adidas_shoes,
             stock: true
         }
     ])
