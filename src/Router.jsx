@@ -1,4 +1,5 @@
 import {HashRouter as BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import Bank from './Bank';
 import Game from './TicTacToe';
