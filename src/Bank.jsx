@@ -179,11 +179,13 @@ export default function Bank(){
     
 
     return(
-        <div className="wrapper">
-            <CreationModal text={modalText}/>
-            <h1> 🏦<br/>Bank</h1>
-            {login ?  <BankAccount /> : <CreateAccount />}
-            
+        <div className="bankBody">
+            <div className="wrapper">
+                <CreationModal text={modalText}/>
+                <h1> 🏦<br/>Bank</h1>
+                {login ?  <BankAccount /> : <CreateAccount />}
+                
+            </div>
         </div>
     )
 }

@@ -1,6 +1,7 @@
-body {
+.bankBody {
     background-color: #222222;
     min-height: 100vh;
+    min-width: 100vw;
     display: flex;
     place-content: center;
     place-items: center;

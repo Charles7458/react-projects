@@ -148,12 +148,14 @@ export default function Game() {
     )
 
     return(
-        <div className='main-div'>
-            <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
+        <div className='gameBody'>
+            <div className='main-div'>
+                <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
 
-                <ol className='steps-list'>
-                    {moves}
-                </ol>
+                    <ol className='steps-list'>
+                        {moves}
+                    </ol>
+            </div>
         </div>
     )
 }

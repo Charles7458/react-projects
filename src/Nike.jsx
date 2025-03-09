@@ -5,11 +5,14 @@ import './styles/nike.css';
 export default function Page() {
 
     
-    const [load, setLoad] = useState("");
+    const [load, setLoad] = useState("Place Order");
     const [cart, setCart] = useState([]);
     const [bought, setBought] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [totalItems, setTotalItems] = useState(0);
     const Products = ([
         {
+            id: 0,
             name: "Nike Black Running Shoes",
             price: 7000,
             imgUrl: "/src/assets/Nike/nike_shoes.jpeg",
@@ -17,6 +20,7 @@ export default function Page() {
         },
 
         {
+            id: 1,
             name: "JBL Speaker",
             price: 3000,
             imgUrl: "/src/assets/Nike/jbl_speaker.jpg",
@@ -24,6 +28,7 @@ export default function Page() {
         },
 
         {
+            id: 2,
             name: "ASUS ROG laptop intel i9, 16GB RAM",
             price: 90000,
             imgUrl: "/src/assets/Nike/ASUS_ROG.jpg",
@@ -31,6 +36,7 @@ export default function Page() {
         },
 
         {
+            id: 3,
             name: "Sony PlayStation 5",
             price: 50000,
             imgUrl: "/src/assets/Nike/PS5.jpeg",
@@ -38,6 +44,7 @@ export default function Page() {
         },
 
         {
+            id: 4,
             name: "Adidas Black Running Shoes",
             price: 5000,
             imgUrl: "/src/assets/Nike/adidas_shoes.jpeg",
@@ -45,34 +52,36 @@ export default function Page() {
         }
     ])
 
-    function updateCart(itemName, qty, price) {
+    function updateCart(product) {
         
-        if( cart.find( ({name}) => name == itemName ) === undefined ){
-
-            let newItem = {
-                name: {itemName},
-                qty: {qty},
-                price: {price}
-            }
-    
-            setCart(cart.push(newItem));
+        let index = cart.findIndex( (cartItem) => cartItem["id"] === product["id"]);
+        //finding if item is already present, if index === -1 ,it means item is not already in the cart
+        if (index === -1){
+            setCart([...cart, product]);
         }
-        
+
         else {
-            let index = cart.findIndex(({name}) => name == itemName);
-            setCart(cart.map( (item, i) =>{
-                if(i===index) {
-                    item.qty = item.qty+1;
-                    item.price = price*item.qty;
+            let newCart = cart.map( (cartItem, i) => {
+                if (i === index){
+                    let newQty = cartItem["qty"] + product["qty"];
+                    let newPrice = newQty*product["price"];
+                    return cartItem = {
+                        ...cartItem, qty: newQty, price: newPrice
+                    }
                 }
-            }))
+                else {
+                    return cartItem;
+                }
+            })
+            setCart(newCart);
         }
-
+        
+        
     }
 
 
-
-    function Product({name, price, imgUrl, stock, cartClick}) {
+    //Component for each product card
+    function Product({productId, name, price, imgUrl, stock}) {
         
         let inStock ="";
         let delivery = "";
@@ -90,6 +99,8 @@ export default function Page() {
             qty = 0;
         }
 
+        
+
         return ( 
             <div class="card">
                 
@@ -106,7 +117,7 @@ export default function Page() {
                     {delivery}
                 </p>
 
-                <label>Qty: <select onChange={ (e) => qty = e.target.value} className="qty">
+                <label>Qty: <select onChange={ (e) => qty = parseInt(e.target.value)} className="qty">
                     <option value={1}>1</option>
                     <option value={2}>2</option>
                     <option value={3}>3</option>
@@ -114,7 +125,16 @@ export default function Page() {
                 </label>
 
                 <div class="buttons" >
-                    <button className="cart" onClick={() => cartClick(name, qty, price)}>
+                    <button className="cart" onClick={() => 
+                    //if product in stock returns product details to updateCart function
+                    {if(qty>0){
+                            updateCart(
+                                {
+                                    "id": productId,
+                                    "name": name,
+                                    "qty": qty,
+                                    "price": price*qty
+                                })}}}>
                         Add to Cart
                     </button>
                     
@@ -145,8 +165,90 @@ export default function Page() {
         minOrder.style.display="none";
     }
 
+    //bringing new cart products to placed orders
+    function loadAllCartOrders() {
+        setTimeout( () => {
+            
+            cart.map( (product) =>
+                {
+                    setBought( (oldList) => [...oldList, product]);
+                    setTotal(oldTotal => oldTotal + product.price);
+                    setTotalItems(oldSum => oldSum + product.qty)
+                    setCart([]);
+                })
+            setLoad("Place Order");
+        },2000);
+    }
+
+    function placeCartOrder() {
+        if (cart.length === 0){
+            setLoad("Place Order")
+            return;
+        }
+
+        if (bought.length === 0) {
+            loadAllCartOrders()
+        }
+
+        else {
+            cart.map( (cartItem) => {
+                //finding if item is already present in placed orders
+                
+                const index = bought.findIndex( (Item) => Item["id"] === cartItem["id"]);
+
+                if (index === -1) {
+                    setTimeout ( () => {
+                        setBought([...bought, cartItem]);
+                        setTotal( oldTotal => oldTotal + cartItem["price"]);
+                        setTotalItems( oldSum => oldSum + cartItem["qty"]);
+                        setLoad("Place Order")
+                    }, 2000)
+                    
+                }
+                else {
+
+                    const newQty = bought[index]["qty"] + cartItem["qty"];
+                    const newPrice = bought[index]["price"] + cartItem["price"];
+                    
+                    //LOading + replacing duplicate item's price and quantity(qty)
+                    setTimeout( () => {
+                        setBought( bought.map( (Item, i) => 
+                        {
+                            if(i === index){
+                                return Item = {
+                                    ...Item,
+                                    "qty": newQty,
+                                    "price": newPrice
+                                };
+                            }
+                            else{
+                                return Item;
+                            }
+                        }))
+
+                        setTotal(oldTotal => oldTotal + cartItem["price"]);
+                        setTotalItems(oldSum => oldSum + cartItem["qty"])
+                        setLoad("Place Order");
+                    },2000)
+                }
+            })
+            //emptying the cart
+            setCart([]);
+        }
+        
+        
+    }
+    
+    function reset() {
+        setCart([]);
+        setBought([]);
+        setTotal(0);
+        setTotalItems(0);
+    }
+        
+
     return(
-        <>
+        <div className="amazonBody">
         <h3 className="bg-warning text-center text-white p-3"><a href="https://www.amazon.in/" target="_blank" className="text-white">
                 Go to Amazon
             </a>
@@ -154,9 +256,9 @@ export default function Page() {
 
         <div className="products">
             {
-                Products.map( (Item) =>{
-                   return <Product name={Item.name} price={Item.price} imgUrl={Item.imgUrl} stock={Item.stock} cartClick={updateCart}/>
-                })
+                Products.map( (Item) =>
+                    <Product key={Item.id} productId={Item.id} name={Item.name} price={Item.price} imgUrl={Item.imgUrl} stock={Item.stock} />
+                )
             }
         </div>
         
@@ -167,36 +269,51 @@ export default function Page() {
                 <button className="m-btn" onClick={minimize}>v</button>
             </div>
             
-            <p>Cart: </p>
-                {/* {
-                    cart.map( (Item) => {
-                        let values = Object.values(Item);
-                        return <p>{values[0]}</p>
-                    }
-                    )
-                } */}
-            
-            <p>Orders Placed: </p>
-            <table className="order-table">
+            <p style={{marginBottom:"0px"}}>Cart: </p>
+            <div className="order-div">
+                <table className="order-table">
                 {
-                    bought.map( (Item) =>
-                        <tr>
-                            <td>{Item["qty"]}x </td>
-                            <td>{Item["name"]}</td> 
-                            <td>{Item["price"]}</td>
-                        </tr>
-                        
-                    )
-                }
-            </table>
-            <p>{load}</p>
+                        cart.map( (Item) => 
+                        <tr className="order-row">
+                            <td><p className="order-list" >{Item.qty}x</p></td>
+                            <td><p className="order-list" title={Item.name}>{Item.name}</p></td>
+                            <td><p className="order-list">₹{Item.price}</p></td>
+                        </tr>)
+                    }
+                    
+                </table>
+            </div>
             
-            <button className="cart" >Place Order</button>
+                
+            <p style={{marginBottom:"0px"}}>Orders Placed: </p>
+            
+            <div className="order-div">
+                <table className="order-table">
+                {
+                        bought.map( (Item) => 
+                        <tr className="order-row">
+                            <td><p className="order-list" >{Item.qty}x</p></td>
+                            <td><p className="order-list" title={Item.name}>{Item.name}</p></td>
+                            <td><p className="order-list">₹{Item.price}</p></td>
+                        </tr>)
+                    }
+                    
+                </table>
+            </div>
+
+            <p>Total: ₹{total} ({totalItems} items)</p>
+            <button className="cart" onClick={() => {setLoad("Loading..."); placeCartOrder()}}>{load}</button>
+            <button className="cart" style={{backgroundColor:"red", display:"block", margin:"10px 0px"}} onClick={reset}>Reset</button>
+
         </div>
+
+
+
+
         <div className='min-orders' id="min-order">
-            <h3>Orders</h3>
+            <h3 className="order-label">Orders</h3>
             <button className="m-btn" onClick={maximize}>^</button>
         </div>
-    </>
+    </div>
     )
 }

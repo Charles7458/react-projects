@@ -1,4 +1,17 @@
 
+.amazonBody {
+    overflow-x: hidden;
+}
+
+.amazonBody p{
+    font-family: helvetica;
+    font-size: clamp(15px, 2vw, 15px);
+}
+
+.amazonBody h1{
+    font-size: clamp(15px, 50vw, 40px);
+}
+
 
 .products {
     display: grid;
@@ -12,14 +25,6 @@
     padding: 30px;
 }
 
-a {
-    color: cyan;
-    transition: color 0.15s;
- }
-
-a:hover {
-    color: orange;
- }
 
 
 .card {
@@ -45,10 +50,6 @@ a:hover {
     padding: 10px;
 }
 
- p {
-    font-family: Helvetica;
-    font-size: 18px;
- }
 
 .name {
     font-size: 20px;
@@ -70,6 +71,7 @@ a:hover {
     background-color: rgb(250, 202, 44);
     color: black;
     cursor: pointer;
+    font-size: clamp(10px, 1vw, 20px);
 }
 
 .buy {
@@ -80,6 +82,7 @@ a:hover {
     background-color: rgb(255, 136, 0);
     color: black;
     cursor: pointer;
+    font-size: clamp(10px, 1vw, 20px);
 }
 
 .buttons {
@@ -91,8 +94,9 @@ a:hover {
 
 .orders {
     padding: 20px;
-    height: 350px;
-    width: 300px;
+    height: fit-content;
+    max-height: 450px;
+    width: 360px;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -101,6 +105,10 @@ a:hover {
     margin: 20px;
     border-radius: 15px;
     z-index: 2;
+}
+
+.order-label {
+    margin-right: 50px;
 }
 
 .order-head {
@@ -130,15 +138,73 @@ a:hover {
     border: none;
     height: fit-content;
     width: fit-content;
-    margin-right: 20px;
+    margin-right: 5px;
     border-radius: 2px;
     background-color: white;
     box-shadow: 0px 0px 5px 0px gray;
 }
 
-.order-table td{
-    padding: 5px;
-    font-size: 15px;
-    width: 30px;
+.order-table {
+    width: 85%;
+}
+
+.order-headings {
+    margin: 10px;
+}
+
+.order-div {
+    height: fit-content;
+    max-height: 80px;
+    width: 90%;
+    overflow-y: scroll;
     overflow-x: scroll;
+    -ms-overflow-style: none;
+}
+
+.order-div::-webkit-scrollbar{
+    display: none;
+}
+
+.order-table td {
+    padding: 0px 10px;
+}
+
+.order-list{
+    margin: 0px;
+    width: fit-content;
+    max-width: 100px;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+@media (max-width: 600px){
+    .products{
+        grid-template-columns: 1fr 1fr;
+    }
+    .card{
+        height: fit-content;
+        width: 35vw;
+    }
+    .orders {
+        width: 40vw;
+        max-height: 300px;
+    }
+    .order-div{
+        max-height: 25px;
+    }
+    .min-orders {
+        width: 30vw;
+    }
+    .order-label{
+        margin-right: 20px;
+    }
+    .cart, .buy {
+        border-radius: 20px;
+        padding: 10px 8px;
+        margin: initial 20px;
+        white-space: nowrap;
+    }
 }

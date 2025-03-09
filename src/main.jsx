@@ -7,10 +7,12 @@ import { createRoot } from 'react-dom/client'
 // import TicTacToe from './GPT/TicTacToe'
 // import Products from './Products'
 // import MovingBall from './Ball'
-import Page from './Nike';
+// import Page from './Nike';
+// import Trial from './Trials';
+import Router from './Router'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Page />
+    <Router />
   </StrictMode>
 )
