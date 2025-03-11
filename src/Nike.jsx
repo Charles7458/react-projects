@@ -145,7 +145,7 @@ export default function Page() {
                     <img src={imgUrl} class="pic" />
                 </div>
                 
-                { stock ? <p>₹{price} - <span style={{color:"rgb(30, 213, 30)"}}>{inStock}</span></p> : <p>₹{price} - <span style={{color:"rgb(197, 140, 9)"}}>{inStock}</span></p>}
+                { stock ? <p className="stock">₹{price} - <span style={{color:"rgb(30, 213, 30)"}}>{inStock}</span></p> : <p className="stock">₹{price} - <span style={{color:"rgb(197, 140, 9)"}}>{inStock}</span></p>}
                 
                 <p>
                     {delivery}
