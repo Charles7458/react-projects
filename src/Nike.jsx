@@ -69,7 +69,7 @@ export default function Page() {
             let newCart = cart.map( (cartItem, i) => {
                 if (i === index){
                     let newQty = cartItem["qty"] + product["qty"];
-                    let newPrice = newQty*product["price"];
+                    let newPrice = cartItem["price"] + product["price"];
                     return cartItem = {
                         ...cartItem, qty: newQty, price: newPrice
                     }
@@ -82,6 +82,35 @@ export default function Page() {
         }
         
         
+    }
+
+    function addToBought(product) {
+        let index = bought.findIndex( (placedItem) => placedItem["id"] === product["id"]);
+        if (index === -1) {
+            setBought([...bought, product]);
+            setTotal(oldTotal => oldTotal + product["price"]);
+            setTotalItems(oldSum => oldSum + product["qty"]);
+        }
+        else {
+            let newBought = 
+            bought.map( (placedItem, i) => {
+                if(i === index) {
+                    let newQty = placedItem["qty"] + product["qty"];
+                    let newPrice = placedItem["price"] + product["price"];
+                    setTotal(oldTotal => oldTotal + product["price"]);
+                    setTotalItems(oldSum => oldSum + product["qty"]);
+                    return placedItem = {
+                        ...placedItem,
+                        "qty":newQty,
+                        "price": newPrice
+                    }
+                }
+                else {
+                    return placedItem;
+                }
+            })
+            setBought(newBought)
+        }
     }
 
 
@@ -132,7 +161,7 @@ export default function Page() {
                 <div class="buttons" >
                     <button className="cart" onClick={() => 
                     //if product in stock returns product details to updateCart function
-                    {if(qty>0){
+                    {if(stock){
                             updateCart(
                                 {
                                     "id": productId,
@@ -143,7 +172,16 @@ export default function Page() {
                         Add to Cart
                     </button>
                     
-                    <button class="buy" >
+                    <button class="buy" onClick={() => {
+                        if(stock){
+                            addToBought({
+                                "id": productId,
+                                "name": name,
+                                "qty": qty,
+                                "price": price*qty
+                            })
+                        }
+                    }}>
                         Buy now
                     </button>
                 </div>
