@@ -171,8 +171,9 @@ export default function Page() {
                                 })}}}>
                         Add to Cart
                     </button>
-                    
+
                     <button class="buy" onClick={() => {
+                        //if product in stock add it to bought list
                         if(stock){
                             addToBought({
                                 "id": productId,
@@ -289,6 +290,10 @@ export default function Page() {
         setTotalItems(0);
     }
         
+    function handlePlaceOrderClick(callBack){
+        setLoad("Loading..."); 
+        callBack()
+    }
 
     return(
         <div className="amazonBody">
@@ -345,7 +350,7 @@ export default function Page() {
             </div>
 
             <p>Total: ₹{total} ({totalItems} items)</p>
-            <button className="cart" onClick={() => {setLoad("Loading..."); placeCartOrder()}}>{load}</button>
+            <button className="cart" onClick={()=>handlePlaceOrderClick(placeCartOrder)}>{load}</button>
             <button className="reset" onClick={reset}>Reset</button>
 
         </div>
