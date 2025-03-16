@@ -13,8 +13,8 @@ export default function Page() {
     const [load, setLoad] = useState("Place Order");
     const [cart, setCart] = useState([]);
     const [bought, setBought] = useState([]);
-    const [total, setTotal] = useState(0);
-    const [totalItems, setTotalItems] = useState(0);
+    const total = bought.reduce( (accumulator, currentValue) => accumulator + currentValue.price, 0)
+    const totalItems = bought.reduce( (accumulator, currentValue) => accumulator+currentValue.qty, 0)
     const Products = ([
         {
             id: 0,
@@ -88,8 +88,6 @@ export default function Page() {
         let index = bought.findIndex( (placedItem) => placedItem["id"] === product["id"]);
         if (index === -1) {
             setBought([...bought, product]);
-            setTotal(oldTotal => oldTotal + product["price"]);
-            setTotalItems(oldSum => oldSum + product["qty"]);
         }
         else {
             let newBought = 
@@ -97,8 +95,6 @@ export default function Page() {
                 if(i === index) {
                     let newQty = placedItem["qty"] + product["qty"];
                     let newPrice = placedItem["price"] + product["price"];
-                    setTotal(oldTotal => oldTotal + product["price"]);
-                    setTotalItems(oldSum => oldSum + product["qty"]);
                     return placedItem = {
                         ...placedItem,
                         "qty":newQty,
@@ -216,8 +212,6 @@ export default function Page() {
             cart.map( (product) =>
                 {
                     setBought( (oldList) => [...oldList, product]);
-                    setTotal(oldTotal => oldTotal + product.price);
-                    setTotalItems(oldSum => oldSum + product.qty)
                     setCart([]);
                 })
             setLoad("Place Order");
@@ -243,8 +237,6 @@ export default function Page() {
                 if (index === -1) {
                     setTimeout ( () => {
                         setBought([...bought, cartItem]);
-                        setTotal( oldTotal => oldTotal + cartItem["price"]);
-                        setTotalItems( oldSum => oldSum + cartItem["qty"]);
                         setLoad("Place Order")
                     }, 2000)
                     
@@ -270,8 +262,6 @@ export default function Page() {
                             }
                         }))
 
-                        setTotal(oldTotal => oldTotal + cartItem["price"]);
-                        setTotalItems(oldSum => oldSum + cartItem["qty"])
                         setLoad("Place Order");
                     },2000)
                 }
@@ -286,8 +276,6 @@ export default function Page() {
     function reset() {
         setCart([]);
         setBought([]);
-        setTotal(0);
-        setTotalItems(0);
     }
         
     function handlePlaceOrderClick(callBack){
