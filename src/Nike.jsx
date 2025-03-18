@@ -109,83 +109,6 @@ export default function Page() {
         }
     }
 
-
-    //Component for each product card
-    function Product({productId, name, price, imgUrl, stock}) {
-        
-        let inStock ="";
-        let delivery = "";
-        let qty = 1;
-
-        if(stock) {
-            inStock = "in stock";
-            delivery = "free delivery tomorrow";
-            
-        }
-
-        else {
-            inStock = "out of stock";
-            delivery = "Product not available";
-            qty = 0;
-        }
-
-        
-
-        return ( 
-            <div class="card">
-                
-                <p class="name">
-                    {name}
-                </p>
-                <div className="pic-wrapper">
-                    <img src={imgUrl} class="pic" />
-                </div>
-                
-                { stock ? <p className="stock">₹{price} - <span style={{color:"rgb(30, 213, 30)"}}>{inStock}</span></p> : <p className="stock">₹{price} - <span style={{color:"rgb(197, 140, 9)"}}>{inStock}</span></p>}
-                
-                <p>
-                    {delivery}
-                </p>
-
-                <label>Qty: <select onChange={ (e) => qty = parseInt(e.target.value)} className="qty">
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                </select>
-                </label>
-
-                <div class="buttons" >
-                    <button className="cart" onClick={() => 
-                    //if product in stock returns product details to updateCart function
-                    {if(stock){
-                            updateCart(
-                                {
-                                    "id": productId,
-                                    "name": name,
-                                    "qty": qty,
-                                    "price": price*qty
-                                })}}}>
-                        Add to Cart
-                    </button>
-
-                    <button class="buy" onClick={() => {
-                        //if product in stock add it to bought list
-                        if(stock){
-                            addToBought({
-                                "id": productId,
-                                "name": name,
-                                "qty": qty,
-                                "price": price*qty
-                            })
-                        }
-                    }}>
-                        Buy now
-                    </button>
-                </div>
-            </div>
-         )
-    }
-
     function minimize() {
         const maxOrder = document.getElementById("max-order");
         const minOrder = document.getElementById("min-order");
@@ -293,7 +216,7 @@ export default function Page() {
         <div className="products">
             {
                 Products.map( (Item) =>
-                    <Product key={Item.id} productId={Item.id} name={Item.name} price={Item.price} imgUrl={Item.imgUrl} stock={Item.stock} />
+                    <Product key={Item.id} productId={Item.id} name={Item.name} price={Item.price} imgUrl={Item.imgUrl} stock={Item.stock} updateCart={updateCart} addToBought={addToBought}/>
                 )
             }
         </div>
@@ -330,7 +253,7 @@ export default function Page() {
                         <tr className="order-row">
                             <td><p className="order-list" >{Item.qty}x</p></td>
                             <td><p className="order-list" title={Item.name}>{Item.name}</p></td>
-                            <td><p className="order-list">₹{Item.price}</p></td>
+                            <td><p className="order-list">₹{Products.find((product)=> product.id==Item.id).price}</p></td>
                         </tr>)
                     }
                     
@@ -352,4 +275,86 @@ export default function Page() {
         </div>
     </div>
     )
+}
+
+
+//Component for each product card
+function Product({productId, name, price, imgUrl, stock, updateCart, addToBought}) {
+        
+    let inStock ="";
+    let delivery = "";
+    let [qty, setQty] = useState(1);
+
+    if(stock) {
+        inStock = "in stock";
+        delivery = "free delivery tomorrow";
+        
+    }
+
+    else {
+        inStock = "out of stock";
+        delivery = "Product not available";
+        
+    }
+
+    
+
+    return ( 
+        <div class="card">
+            
+            <p class="name">
+                {name}
+            </p>
+            <div className="pic-wrapper">
+                <img src={imgUrl} class="pic" />
+            </div>
+            
+            { stock ? <p className="stock">₹{price} - <span style={{color:"rgb(30, 213, 30)"}}>{inStock}</span></p> : <p className="stock">₹{price} - <span style={{color:"rgb(197, 140, 9)"}}>{inStock}</span></p>}
+            
+            <p>
+                {delivery}
+            </p>
+
+            { stock && 
+            <label>Qty: <select onChange={ (e) => setQty( parseInt(e.target.value) )} className="qty" value={qty}>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+            </select>
+            </label>
+            }
+
+            <div class="buttons" >
+                <button className="cart" onClick={() => 
+                //if product in stock returns product details to updateCart function
+                {if(stock){
+                        updateCart(
+                            {
+                                "id": productId,
+                                "name": name,
+                                "qty": qty,
+                                "price": price*qty
+                            })
+                            setQty(1)
+                            }}}>
+                    Add to Cart
+                </button>
+
+                <button class="buy" onClick={() => {
+                    //if product in stock add it to bought list
+                    if(stock){
+                        addToBought({
+                            "id": productId,
+                            "name": name,
+                            "qty": qty,
+                            "price": price*qty
+                        })
+                        setQty(1)
+                    }
+                }}>
+                    Buy now
+                </button>
+            </div>
+        </div>
+     )
 }
